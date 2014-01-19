@@ -13,6 +13,7 @@ typedef void (^STHTTPConnectionHandler)(id);
 @property (nonatomic) NSURLCacheStoragePolicy cachePolicy;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURLRequest *request;
+@property (nonatomic, strong) NSDictionary *httpHeaderFields;
 @property (nonatomic, strong) NSDictionary *parameters;
 
 @property (nonatomic, weak) id receiver;

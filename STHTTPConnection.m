@@ -107,6 +107,12 @@ BOOL isContainer(Class class) {
         mutableRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:self.cachePolicy timeoutInterval:self.timeoutInterval];
         [mutableRequest setHTTPMethod:self.request.HTTPMethod ? self.request.HTTPMethod : @"GET"];
     }
+    if (self.httpHeaderFields.count > 0) {
+        [self.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *headerField, NSString *value, BOOL *stop) {
+                [mutableRequest setValue:value forHTTPHeaderField:headerField];
+            }];
+    }
+
     self.request = mutableRequest;
     self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
 }
