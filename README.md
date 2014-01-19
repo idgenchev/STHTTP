@@ -1,4 +1,4 @@
 STHTTP
 ======
 
-HTTP library for iOS based on NSURLConnection
+HTTP library for iOS 5+ and Mac OS X, based on NSURLConnection
