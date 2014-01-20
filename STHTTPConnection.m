@@ -28,6 +28,18 @@ BOOL isContainer(Class class) {
 @synthesize error = _error;
 @synthesize loadingData = _loadingData;
 
++ (id)connectionWithURLRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameters {
+    id connection = [[[self class] alloc] initWithURLRequest:request handler:nil];
+    ((STHTTPConnection*)connection).parameters = parameters;
+    return connection;
+}
+
++ (id)connectionWithURLString:(NSString*)urlString httpMethod:(NSString*)httpMethod parameters:(NSDictionary*)parameters {
+    id connection = [[[self class] alloc] initWithURLString:urlString httpMethod:httpMethod handler:nil];
+    ((STHTTPConnection*)connection).parameters = parameters;
+    return connection;
+}
+
 + (id)connectionWithURLRequest:(NSURLRequest*)request receiver:(id)receiver action:(SEL)action {
     return [[[self class] alloc] initWithURLRequest:request receiver:receiver action:action];
 }
@@ -112,8 +124,8 @@ BOOL isContainer(Class class) {
         } else {
             NSString *urlString = [NSString stringWithFormat:@"%@?%@", [self.request.URL absoluteString], [self requestBodyFromDictionary:self.parameters]];
             mutableRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:self.cachePolicy timeoutInterval:self.timeoutInterval];
-            [mutableRequest setHTTPMethod:self.request.HTTPMethod ? self.request.HTTPMethod : @"GET"];
         }
+        [mutableRequest setHTTPMethod:self.request.HTTPMethod ? self.request.HTTPMethod : @"GET"];
     }
     
     if (self.httpHeaderFields.count > 0) {

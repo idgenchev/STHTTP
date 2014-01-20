@@ -27,6 +27,9 @@ typedef void (^STHTTPConnectionHandler)(id);
 
 @property (atomic, readonly, getter = isCancelled) BOOL cancelled;
 
++ (id)connectionWithURLRequest:(NSURLRequest*)request parameters:(NSDictionary*)parameters;
++ (id)connectionWithURLString:(NSString*)urlString httpMethod:(NSString*)httpMethod parameters:(NSDictionary*)parameters;
+
 + (id)connectionWithURLRequest:(NSURLRequest*)request
                    receiver:(id)receiver
                      action:(SEL)action;
