@@ -25,6 +25,8 @@ typedef void (^STHTTPConnectionHandler)(id);
 @property (nonatomic, readonly) NSData *data;
 @property (nonatomic, readonly) NSError *error;
 
+@property (atomic, readonly, getter = isCancelled) BOOL cancelled;
+
 + (id)connectionWithURLRequest:(NSURLRequest*)request
                    receiver:(id)receiver
                      action:(SEL)action;

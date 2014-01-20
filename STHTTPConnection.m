@@ -127,6 +127,7 @@ BOOL isContainer(Class class) {
 }
 
 - (void)cancel {
+    self.cancelled = YES;
     [self.connection cancel];
 	self.connection = nil;
 	self.receiver = nil;
@@ -185,7 +186,10 @@ BOOL isContainer(Class class) {
 - (void)didFinishLoading {
     self.loadingData = NO;
     if (self.completionHandler) { self.completionHandler(self); }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if (self.receiver) { [self.receiver performSelector:self.action withObject:self]; }
+#pragma clang diagnostic pop
 }
 
 - (NSString*)requestBodyFromDictionary:(NSDictionary*)parameters {
@@ -260,5 +264,7 @@ BOOL isContainer(Class class) {
 }
 
 - (NSData*)data { return [NSData dataWithData:self.mutableData]; }
+
+- (void)setCancelled:(BOOL)cancelled { _cancelled = cancelled; }
 
 @end
